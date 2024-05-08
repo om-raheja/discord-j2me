@@ -5,6 +5,8 @@ Discord client for Java ME (MIDP 2.0) devices, inspired by [Discord for Symbian]
 
 * [Download](https://github.com/gtrxAC/discord-j2me/releases/latest)
 * [FAQ](https://github.com/gtrxAC/discord-j2me/wiki/FAQ)
+* [Discord server](https://discord.gg/2GKuJjQagp) (#apps-and-games)
+* [Telegram group](https://t.me/dscforsymbian)
 
 ## Status
 ### Working
@@ -15,8 +17,10 @@ Discord client for Java ME (MIDP 2.0) devices, inspired by [Discord for Symbian]
 * Reading older messages
 * Direct messages (not group DMs)
 
-### Not implemented
+### Work in progress
 * WebSocket (live message updates)
+
+### Not implemented
 * Replying to messages
 * Ping/unread indicators
 * Pretty much everything else

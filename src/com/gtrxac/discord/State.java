@@ -16,6 +16,7 @@ public class State {
 	Font smallBoldFont;
 
 	HTTPThing http;
+	SocketThing gateway;
 
 	Vector guilds;
 	Guild selectedGuild;
@@ -40,7 +41,7 @@ public class State {
 	public void error(String message) {
 		Alert error = new Alert("Error");
 		error.setString(message);
-		disp.setCurrent(error);
+		disp.setCurrent(error, guildSelector); // FIXME: change back after fixing socket
 	}
 
 	public void openGuildSelector(boolean reload) {
