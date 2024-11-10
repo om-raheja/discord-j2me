@@ -24,7 +24,7 @@ public class SettingsScreen extends ListScreen implements CommandListener, Strin
         { 2, 2, 2, 1, 1, 1, 1 },
         { 1, 10000, 3, 2, 255, 1 },
         { 100, 1, 1, 1, 1, 1, 2, 1 },
-        { 1, 1, 1, 1, 1, 1 },
+        { 1, 1, 1, 1, 1 },
     };
 
     private boolean isInSubmenu;
@@ -82,7 +82,6 @@ public class SettingsScreen extends ListScreen implements CommandListener, Strin
                 Locale.get(NOTIFICATIONS_DMS),
                 Locale.get(NOTIFICATIONS_ALERT),
                 Locale.get(NOTIFICATIONS_SOUND),
-                Locale.get(NOTIFICATIONS_PIGLER),
             },
         };
 
@@ -121,7 +120,6 @@ public class SettingsScreen extends ListScreen implements CommandListener, Strin
                 { s.ic.notifyDM },
                 { s.ic.notifyAlert },
                 { s.ic.notifySound },
-                { s.ic.pigler },
             }
         };
         String[] boolValues = { Locale.get(SETTING_VALUE_OFF), Locale.get(SETTING_VALUE_ON) };
@@ -156,7 +154,6 @@ public class SettingsScreen extends ListScreen implements CommandListener, Strin
                 boolValues,
             }, {
                 // Notifications
-                boolValues,
                 boolValues,
                 boolValues,
                 boolValues,
@@ -199,7 +196,6 @@ public class SettingsScreen extends ListScreen implements CommandListener, Strin
                 s.showNotifsDMs ? 1 : 0,
                 s.showNotifAlert ? 1 : 0,
                 s.playNotifSound ? 1 : 0,
-                s.showNotifPigler ? 1 : 0,
             }
         };
         showMainScreen();
@@ -278,10 +274,7 @@ public class SettingsScreen extends ListScreen implements CommandListener, Strin
 
         deleteAll();
         for (int i = 0; i < labels[index].length; i++) {
-            // Pigler API option is only shown on devices that support said API
-            if (index != 3 || i != 5 || Util.supportsPigler) {
-                append(labels[index][i], getValueLabel(index, i), getIcon(index, i), false);
-            }
+            append(labels[index][i], getValueLabel(index, i), getIcon(index, i), false);
         }
     }
 
@@ -390,7 +383,6 @@ public class SettingsScreen extends ListScreen implements CommandListener, Strin
                 s.showNotifsDMs = values[3][2] == 1;
                 s.showNotifAlert = values[3][3] == 1;
                 s.playNotifSound = values[3][4] == 1;
-                s.showNotifPigler = values[3][5] == 1;
 
                 if (reloadIcons) {
                     // Unload server and DM lists so the icons get refreshed
@@ -403,7 +395,6 @@ public class SettingsScreen extends ListScreen implements CommandListener, Strin
                     }
                 }
 
-                if (s.gatewayActive()) s.gateway.checkInitPigler();
                 LoginSettings.save(s);
                 s.loadTheme();
                 s.loadFonts();

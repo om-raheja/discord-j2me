@@ -73,7 +73,7 @@ public class LoginSettings {
                 s.highRamMode = getBoolRecord(Util.isSymbian || Util.isJ2MELoader || Util.isKemulator);
                 s.showNotifAlert = getBoolRecord(true);
                 s.playNotifSound = getBoolRecord(true);
-                s.showNotifPigler = getBoolRecord(Util.supportsPigler);
+                index++;  // skip unused option (pigler)
                 KineticScrollingCanvas.scrollBarMode = getByteRecord(
                     Util.isKemulator ?
                         KineticScrollingCanvas.SCROLL_BAR_VISIBLE :
@@ -144,7 +144,7 @@ public class LoginSettings {
             setBoolRecord(s.highRamMode);
             setBoolRecord(s.showNotifAlert);
             setBoolRecord(s.playNotifSound);
-            setBoolRecord(s.showNotifPigler);
+            setBoolRecord(false);  // skip unused option (pigler)
             setByteRecord(KineticScrollingCanvas.scrollBarMode);
             setBoolRecord(s.autoUpdate);
             loginRms.closeRecordStore();

@@ -30,7 +30,7 @@ public class UpdateDialog extends Dialog implements CommandListener, Strings {
     public void commandAction(Command c, Displayable d) {
         if (c == updateCommand) {
             char format = (Util.isJ2MELoader || Util.isKemulator) ? 'r' : 'd';
-            s.platformRequest(s.api + "/discord_midp2.ja" + format);
+            s.platformRequest(s.api + "/discord_midp2_alt.ja" + format);
         }
         else if (c == closeCommand) {
             s.disp.setCurrent(MainMenu.get(null));

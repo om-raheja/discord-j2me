@@ -4,11 +4,10 @@ import java.io.*;
 import java.util.*;
 import javax.microedition.io.*;
 import javax.microedition.lcdui.*;
-import org.pigler.tester.*;
 
 import cc.nnproject.json.*;
 
-public class GatewayThread extends Thread implements Strings, PiglerAPIHandlerLayer {
+public class GatewayThread extends Thread implements Strings {
     private State s;
 
     volatile boolean stop;
@@ -21,16 +20,6 @@ public class GatewayThread extends Thread implements Strings, PiglerAPIHandlerLa
     private OutputStream os;
 
     private static int reconnectAttempts;
-
-    private static Image appIcon;
-    private static PiglerAPILayer pigler;
-    private static boolean piglerInitFailed;
-    private static Object piglerLock = new Object();
-
-    /**
-     * Pigler notification UID -> Notification object
-     */
-    public static Hashtable piglerNotifs;
 
     public GatewayThread(State s) {
         this.s = s;
@@ -139,82 +128,15 @@ public class GatewayThread extends Thread implements Strings, PiglerAPIHandlerLa
         }
         content = c.toString();
 
-        Notification notif = new Notification(guildID, channelID);
-
         if (s.showNotifAlert) {
+            Notification notif = new Notification(guildID, channelID);
+
             s.disp.setCurrent(new NotificationDialog(s, notif, location, msg));
         }
-        
-        synchronized (piglerLock) {
-            if (s.showNotifPigler && pigler != null) {
-                try {
-                    int uid;
-                    if (isDM) {
-                        uid = pigler.createNotification(author, content, appIcon, true);
-                    } else {
-                        uid = pigler.createNotification(location, author + ": " + content, appIcon, true);
-                    }
-                    piglerNotifs.put(new Integer(uid), notif);
-                }
-                catch (Exception e) {}
-            }
-        }
-    }
-
-    public void checkInitPigler() {
-        synchronized (piglerLock) {
-            if (s.showNotifPigler) {
-                if (pigler == null && !piglerInitFailed) {
-                    initPigler();
-                }
-            } else {
-                appIcon = null;
-                pigler = null;
-                piglerInitFailed = false;
-                piglerNotifs = null;
-            }
-        }
-    }
-
-    private void initPigler() {
-		if (!Util.supportsPigler) {
-            s.error(Locale.get(PIGLER_NOT_SUPPORTED));
-            piglerInitFailed = true;
-			return;
-		}
-
-        try {
-            appIcon = Image.createImage("/icon.png");
-        }
-        catch (Exception e) {}
-        
-		try {
-            synchronized (piglerLock) {
-                piglerNotifs = new Hashtable();
-                pigler = new PiglerAPILayer();
-                pigler.setListener(this);
-                int missedUid = pigler.init("Discord");
-                if (missedUid != 0) handleNotificationTap(missedUid);
-            }
-		} catch (Exception e) {
-			e.printStackTrace();
-            s.error(Locale.get(PIGLER_ERROR) + e.toString());
-		}
-    }
-    
-    public void handleNotificationTap(int uid) {
-        Integer uidObject = new Integer(uid);
-        Notification notif = (Notification) piglerNotifs.get(uidObject);
-        if (notif == null) return;
-
-        piglerNotifs.remove(uidObject);
-        notif.view(s);
     }
 
     public void run() {
         try {
-            checkInitPigler();
-
             sc = (SocketConnection) Connector.open(s.getPlatformSpecificUrl(s.gatewayUrl));
 
             // Not supported on JBlend (e.g. some Samsungs)
@@ -311,7 +233,7 @@ public class GatewayThread extends Thread implements Strings, PiglerAPIHandlerLa
 
                             if (shouldNotify(msgData)) {
                                 if (s.playNotifSound) AlertType.ALARM.playSound(s.disp);
-                                if (s.showNotifAlert || s.showNotifPigler) handleNotification(msgData);
+                                if (s.showNotifAlert) handleNotification(msgData);
                             }
 
                             Channel ch = Channel.getByID(s, chId);

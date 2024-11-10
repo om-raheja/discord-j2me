@@ -47,7 +47,6 @@ public class State implements Strings {
 	boolean showNotifsPings;
 	boolean showNotifsDMs;
 	boolean showNotifAlert;
-	boolean showNotifPigler;
 	boolean playNotifSound;
 	boolean highRamMode;
 	boolean autoUpdate;

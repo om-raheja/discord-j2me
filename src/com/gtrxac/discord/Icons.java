@@ -46,7 +46,6 @@ public class Icons {
     Image fullscreen;
     Image keepChLoaded;
     Image scrollBars;
-    Image pigler;
     Image about;
     Image flagGB;
     Image flagUS;
@@ -151,7 +150,7 @@ public class Icons {
         fullscreen = next();
         keepChLoaded = next();
         scrollBars = next();
-        pigler = next();
+        next();  // skip unused
         about = next();
         flagGB = next();
         flagUS = next();

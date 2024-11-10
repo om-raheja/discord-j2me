@@ -241,9 +241,9 @@ public interface Strings {
     static final int SETTING_VALUE_ON = 237;
     static final int SETTINGS_ERROR_INVALID_NUMBER_PREFIX = 238;
     static final int SETTINGS_ERROR_INVALID_NUMBER_SUFFIX = 239;
-    static final int NOTIFICATIONS_PIGLER = 240;
-    static final int PIGLER_ERROR = 241;
-    static final int PIGLER_NOT_SUPPORTED = 242;
+    // static final int NOTIFICATIONS_PIGLER = 240;
+    // static final int PIGLER_ERROR = 241;
+    // static final int PIGLER_NOT_SUPPORTED = 242;
     static final int SHOW_SCROLLBAR = 243;
     static final int SCROLLBAR_WHEN_NEEDED = 244;
     static final int SCROLLBAR_PERMANENT = 245;

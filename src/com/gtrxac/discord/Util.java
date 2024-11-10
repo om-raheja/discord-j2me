@@ -322,8 +322,6 @@ public class Util {
 	public static final boolean isJ2MELoader;
 	public static final boolean isSymbian;
 
-	public static final boolean supportsPigler;
-
 	static {
 		String platform = System.getProperty("microedition.platform");
 		if (platform == null) platform = "";
@@ -337,8 +335,6 @@ public class Util {
 				System.getProperty("com.symbian.default.to.suite.icon") != null ||
 				checkClass("com.symbian.midp.io.protocol.http.Protocol") ||
 				checkClass("com.symbian.lcdjava.io.File");
-
-		supportsPigler = System.getProperty("org.pigler.api.version") != null;
 	}
 	
 	// https://github.com/shinovon/JTube/blob/master/src/jtube/PlatformUtils.java
