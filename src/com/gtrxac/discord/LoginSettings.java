@@ -9,9 +9,9 @@ public class LoginSettings {
     static int index;
 
     public static int getBestMenuIconSize() {
-        int height = Font.getDefaultFont().getHeight();
+        int height = Util.fontSize;
         int result = height/16*16;
-        if (height - result >= 10) result += 16;
+        if (height - result >= 6) result += 16;
         if (result == 0) return 8;
         return result;
     }
@@ -79,7 +79,7 @@ public class LoginSettings {
                         KineticScrollingCanvas.SCROLL_BAR_VISIBLE :
                         KineticScrollingCanvas.SCROLL_BAR_HIDDEN
                 );
-                s.autoUpdate = getBoolRecord(true);
+                s.autoUpdate = getByteRecord(State.AUTO_UPDATE_RELEASE_ONLY);
 
                 // Convert from old enum format (1 = 16, 2 = 32) to new format (actual pixel size)
                 if (s.menuIconSize == 1) s.menuIconSize = 16;
@@ -146,7 +146,7 @@ public class LoginSettings {
             setBoolRecord(s.playNotifSound);
             setBoolRecord(false);  // skip unused option (pigler)
             setByteRecord(KineticScrollingCanvas.scrollBarMode);
-            setBoolRecord(s.autoUpdate);
+            setByteRecord(s.autoUpdate);
             loginRms.closeRecordStore();
         }
         catch (Exception e) {

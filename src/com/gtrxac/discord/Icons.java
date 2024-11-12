@@ -47,6 +47,7 @@ public class Icons {
     Image keepChLoaded;
     Image scrollBars;
     Image about;
+    Image autoUpdate;
     Image flagGB;
     Image flagUS;
     Image flagES;
@@ -152,6 +153,7 @@ public class Icons {
         scrollBars = next();
         next();  // skip unused
         about = next();
+        autoUpdate = next();
         flagGB = next();
         flagUS = next();
         flagES = next();
